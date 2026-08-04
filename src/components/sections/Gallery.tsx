@@ -2,10 +2,38 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
+
 import { Container } from "@/components/ui/container";
 import { galleryImages } from "@/data/site";
+import { cn } from "@/lib/utils";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.96 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: EASE } },
+};
+
+const aspectMap = [
+  "aspect-[4/5]",
+  "aspect-square",
+  "aspect-[4/5]",
+  "aspect-square",
+];
 
 export function Gallery() {
+  const [lightbox, setLightbox] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <section
       id="gallery"
@@ -25,49 +53,86 @@ export function Gallery() {
           </h2>
         </div>
 
-        <div
-          className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8 px-4 md:px-6"
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+          }}
+          className="columns-2 gap-3 px-4 md:columns-3 md:gap-4 md:px-6 lg:columns-4"
           role="list"
           aria-label="Gallery images"
         >
-          {galleryImages.map((image, index) => {
-            const spanMap: Record<number, { col: number; row: number }> = {
-              0: { col: 4, row: 2 },
-              1: { col: 4, row: 2 },
-              2: { col: 4, row: 2 },
-              3: { col: 4, row: 2 },
-              4: { col: 4, row: 2 },
-              5: { col: 4, row: 2 },
-              6: { col: 4, row: 2 },
-              7: { col: 4, row: 2 },
-            };
-
-            const layout = spanMap[index] || { col: 4, row: 2 };
-
-            return (
-              <article
-                key={index}
-                className={`
-                  relative overflow-hidden
-                  lg:col-span-${layout.col}
-                  lg:row-span-${layout.row}
-                  aspect-square lg:aspect-auto
-                  min-h-[200px] lg:min-h-[400px]
-                `}
-                role="listitem"
-              >
+          {galleryImages.map((image, index) => (
+            <motion.button
+              key={index}
+              type="button"
+              variants={itemVariants}
+              onClick={() => setLightbox(index)}
+              className={cn(
+                "group mb-3 block w-full cursor-pointer overflow-hidden rounded-3xl md:mb-4",
+                aspectMap[index % aspectMap.length]
+              )}
+              aria-label={`View gallery image ${index + 1}`}
+            >
+              <span className="relative block h-full w-full">
                 <Image
                   src={image}
-                  alt={`Arora Bakery gallery image ${index + 1}`}
+                  alt={`Arora Bakery creation ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 12.5vw"
+                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
-              </article>
-            );
-          })}
-        </div>
+                <span className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              </span>
+            </motion.button>
+          ))}
+        </motion.div>
       </Container>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && galleryImages[lightbox] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-dark/95 p-6"
+            onClick={() => setLightbox(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Gallery lightbox"
+          >
+            <button
+              type="button"
+              onClick={() => setLightbox(null)}
+              aria-label="Close"
+              className="absolute top-6 right-6 flex h-11 w-11 items-center justify-center rounded-full border border-surface/25 text-surface transition-colors hover:border-primary hover:text-primary"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              className="relative max-h-[85vh] max-w-4xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={galleryImages[lightbox]}
+                alt={`Arora Bakery creation ${lightbox + 1}`}
+                width={1200}
+                height={800}
+                className="max-h-[85vh] w-auto rounded-2xl object-contain"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -1,34 +1,29 @@
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { SignatureSection } from "@/components/signature/SignatureSection";
+import { About } from "@/components/sections/About";
+import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+import { Gallery } from "@/components/sections/Gallery";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { VisitUs } from "@/components/sections/VisitUs";
+import { Footer } from "@/components/sections/Footer";
+import { Preloader } from "@/components/ui/preloader";
 
 export default function Home() {
   return (
     <>
+      <Preloader />
       <Navbar />
       <main>
         <Hero />
-
         <SignatureSection />
-
-        <PlaceholderSection id="products" title="Products" />
-        <PlaceholderSection id="about" title="About" />
-        <PlaceholderSection id="gallery" title="Gallery" />
-        <PlaceholderSection id="contact" title="Contact" />
+        <About />
+        <WhyChooseUs />
+        <Gallery />
+        <Testimonials />
+        <VisitUs />
       </main>
+      <Footer />
     </>
-  );
-}
-
-function PlaceholderSection({ id, title }: { id: string; title: string }) {
-  return (
-    <section
-      id={id}
-      className="flex min-h-[70vh] items-center justify-center border-t border-border/50"
-    >
-      <h2 className="font-heading text-4xl font-medium text-muted-foreground">
-        {title}
-      </h2>
-    </section>
   );
 }

@@ -21,7 +21,6 @@ export function About() {
               fill
               className="object-cover rounded-4xl shadow-xl"
               sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
             />
           </div>
 

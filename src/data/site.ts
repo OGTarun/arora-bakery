@@ -1,6 +1,6 @@
 export const navigation = [
   { label: "Home", href: "#home" },
-  { label: "Products", href: "#products" },
+  { label: "Collection", href: "#signature" },
   { label: "About", href: "#about" },
   { label: "Gallery", href: "#gallery" },
   { label: "Contact", href: "#contact" },
@@ -105,9 +105,44 @@ export const aboutContent = {
   ],
 };
 
+export const testimonials = [
+  {
+    id: "t1",
+    name: "Simran Kaur",
+    role: "Regular since 2015",
+    quote:
+      "The celebration cakes here have made every family birthday unforgettable. You can taste the care in every single layer.",
+    rating: 5,
+  },
+  {
+    id: "t2",
+    name: "Rajesh Arora",
+    role: "Corporate client",
+    quote:
+      "We order their pastries for every office event. Always fresh, always beautiful, never a single complaint.",
+    rating: 5,
+  },
+  {
+    id: "t3",
+    name: "Priya Sharma",
+    role: "Wedding client",
+    quote:
+      "Our wedding cake was a work of art. Guests still talk about it. Arora Bakery made it feel truly special.",
+    rating: 5,
+  },
+  {
+    id: "t4",
+    name: "Harpreet Singh",
+    role: "Morning regular",
+    quote:
+      "The fresh bread is what I wake up early for. Warm, crusty, handmade — there is simply nothing else like it.",
+    rating: 5,
+  },
+];
+
 export const contactInfo = {
-  address: "G.T. Road, Near Bus Stand, Khanna, Punjab 141401",
-  phone: "+91 1628 220 000",
+  address: "Grand Trunk Road, Near Bus Stand, Khanna, Punjab 141401",
+  phone: "+91 99881 77153",
   email: "orders@arorabakery.com",
   hours: "Mon–Sat: 7:00 AM – 10:00 PM\nSun: 8:00 AM – 9:00 PM",
 };
