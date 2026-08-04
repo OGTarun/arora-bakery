@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ------------------------------------------------------------------ */
+/*  Arora Bakery — Design Tokens                                       */
+/*  Warm · Luxurious · Editorial                                       */
+/* ------------------------------------------------------------------ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-cormorant);
+  --font-display: var(--font-cormorant);
+
+  --color-background: #fff8f2;
+  --color-foreground: #2d2017;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-card-foreground: #2d2017;
+
+  --color-primary: #d79b59;
+  --color-primary-foreground: #2d2017;
+
+  --color-secondary: #f7e3cf;
+  --color-secondary-foreground: #2d2017;
+
+  --color-accent: #ffcf8a;
+  --color-accent-foreground: #2d2017;
+
+  --color-muted: #f7e3cf;
+  --color-muted-foreground: #7a6b60;
+
+  --color-dark: #2d2017;
+  --color-text: #433127;
+
+  --color-border: #ead9c5;
+  --color-input: #ead9c5;
+  --color-ring: #d79b59;
+
+  --color-destructive: #c2493c;
+
+  --radius: 1.5rem;
+  --radius-sm: 0.875rem;
+  --radius-md: 1.125rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+  --radius-4xl: 3rem;
+
+  --shadow-soft: 0 24px 60px -24px rgb(45 32 23 / 0.18);
+  --shadow-glow: 0 12px 40px -8px rgb(215 155 89 / 0.45);
+  --shadow-float: 0 32px 80px -24px rgb(45 32 23 / 0.28);
+
+  --animate-float-slow: float-slow 9s ease-in-out infinite;
+  --animate-float-slower: float-slower 13s ease-in-out infinite;
+  --animate-twinkle: twinkle 3.6s ease-in-out infinite;
+  --animate-scroll-hint: scroll-hint 2.4s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                          */
+/* ------------------------------------------------------------------ */
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(var(--tilt, 0deg));
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-22px) rotate(var(--tilt, 0deg));
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  ::selection {
+    @apply bg-primary/25 text-foreground;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+
+@utility container-px {
+  @apply px-6 sm:px-10 lg:px-16 xl:px-24;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility glass {
+  background: rgb(255 252 / 0.72);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgb(255 255 255 / 0.65);
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.6),
+    0 24px 60px -30px rgb(45 32 23 / 0.25);
+}
+
+@utility glass-dark {
+  background: rgb(45 32 23 / 0.55);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgb(255 255 255 / 0.12);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Lenis smooth scroll                                                */
+/* ------------------------------------------------------------------ */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Custom cursor — only on precision pointers                         */
+/* ------------------------------------------------------------------ */
+
+@media (pointer: fine) {
+  .cursor-native,
+  .cursor-native * {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
