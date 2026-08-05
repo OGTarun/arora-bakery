@@ -186,12 +186,12 @@ html.lenis body {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Custom cursor — only on precision pointers                         */
+/*  Custom cursor — only on precision pointers & after JS mount        */
 /* ------------------------------------------------------------------ */
 
 @media (pointer: fine) {
-  .cursor-native,
-  .cursor-native * {
+  .has-custom-cursor,
+  .has-custom-cursor * {
     cursor: none;
   }
 }

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { products } from "@/data/site";
-import { cn } from "@/lib/utils";
 
 export function FeaturedProducts() {
   return (

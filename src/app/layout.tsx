@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} h-full cursor-none`}
+      className={`${inter.variable} ${cormorant.variable} h-full`}
     >
       <body className={`flex min-h-full flex-col antialiased`}>        <Cursor>
           <SmoothScroll>{children}</SmoothScroll>

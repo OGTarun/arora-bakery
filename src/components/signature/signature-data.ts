@@ -1,4 +1,4 @@
-export interface SignatureItem {
+﻿export interface SignatureItem {
   id: string;
   name: string;
   category: string;
@@ -39,9 +39,9 @@ export const signatureItems: SignatureItem[] = [
     name: "Cookies",
     category: "Cookies",
     description:
-      "Golden outside, chewy inside — perfect with a glass of milk.",
+      "Golden outside, chewy inside â€” perfect with a glass of milk.",
     image:
-      "https://images.unsplash.com/photo-1499636138242-3f4b4b9c4c9c?w=900&q=80",
+      "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?w=900&q=80",
   },
   {
     id: "bread",
@@ -68,6 +68,6 @@ export const signatureItems: SignatureItem[] = [
     description:
       "Crisp, warm treats made to be shared, any time of day.",
     image:
-      "https://images.unsplash.com/photo-1599490659217-1e2672d8e8c9?w=900&q=80",
+      "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=900&q=80",
   },
 ];

@@ -79,6 +79,24 @@ const midground = [
   },
 ];
 
+const miniCupcakes = [
+  {
+    position: "top-[58%] left-[4%] hidden sm:block",
+    size: "h-14 w-14",
+    index: 2,
+  },
+  {
+    position: "top-[12%] right-[24%] hidden lg:block",
+    size: "h-11 w-11",
+    index: 3,
+  },
+  {
+    position: "bottom-[12%] right-[38%] hidden md:block",
+    size: "h-16 w-16",
+    index: 4,
+  },
+];
+
 const clouds = [
   { className: "top-8 -left-10 h-24 w-32 bg-white/70", index: 0 },
   { className: "bottom-16 -right-8 h-28 w-40 bg-secondary/80", index: 1 },
@@ -260,6 +278,24 @@ export function FloatingWorld() {
         >
           <Cherry />
         </motion.div>
+
+        {/* Mini floating cupcakes */}
+        {miniCupcakes.map((cup) => (
+          <motion.div
+            key={cup.index}
+            custom={cup.index}
+            variants={DRIFT}
+            initial="float"
+            animate="float"
+            className={`absolute ${cup.position}`}
+          >
+            <span
+              className={`block overflow-hidden rounded-full border border-white/70 bg-white/60 shadow-soft backdrop-blur-lg ${cup.size}`}
+            >
+              <Cupcake />
+            </span>
+          </motion.div>
+        ))}
       </div>
 
       {/* Foreground — sparkles */}
