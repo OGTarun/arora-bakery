@@ -115,11 +115,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
           <Image
             src="/cake.png"
             alt="Chocolate celebration cake"
-            width={460}
-            height={460}
+            width={560}
+            height={560}
             priority
-            sizes="(min-width:1024px) 460px, (min-width:640px) 400px, 300px"
-            className="h-[300px] w-[262px] object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)] sm:h-[400px] sm:w-[350px] lg:h-[460px] lg:w-[402px]"
+            sizes="(min-width:1024px) 560px, (min-width:640px) 480px, 360px"
+            className="h-[340px] w-[300px] object-contain drop-shadow-[0_50px_70px_rgba(0,0,0,0.5)] sm:h-[460px] sm:w-[402px] lg:h-[560px] lg:w-[490px]"
           />
         </motion.div>
 
@@ -138,9 +138,9 @@ export function FloatingCake({ className }: FloatingCakeProps) {
           <Image
             src="/sprinkles.png"
             alt=""
-            width={160}
-            height={160}
-            className="h-32 w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.45)]"
+            width={200}
+            height={200}
+            className="h-40 w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.45)]"
           />
         </motion.div>
 

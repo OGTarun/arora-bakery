@@ -115,7 +115,7 @@ export function Hero() {
         </div>
 
         {/* Right — floating chocolate cake */}
-        <FloatingCake className="mx-auto h-[380px] w-full max-w-md sm:h-[440px] lg:h-[540px] lg:max-w-xl" />
+        <FloatingCake className="mx-auto h-[400px] w-full max-w-md sm:h-[500px] lg:h-[620px] lg:max-w-2xl" />
       </div>
 
       {/* Bottom feature strip */}
