@@ -30,12 +30,12 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const y = useSpring(my, { stiffness: 40, damping: 16, mass: 1.2 });
 
   /* Inertial translate — the cake lags behind the cursor. */
-  const translateX = useTransform(x, (v) => v * 26);
-  const translateY = useTransform(y, (v) => v * 18);
+  const translateX = useTransform(x, (v) => v * 30);
+  const translateY = useTransform(y, (v) => v * 22);
 
-  /* Slight 3D tilt based on cursor position. */
-  const rotateX = useTransform(y, (v) => v * -7);
-  const rotateY = useTransform(x, (v) => v * 9);
+  /* 3D tilt based on cursor position. */
+  const rotateX = useTransform(y, (v) => v * -16);
+  const rotateY = useTransform(x, (v) => v * 18);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -53,7 +53,10 @@ export function FloatingCake({ className }: FloatingCakeProps) {
       ref={wrapRef}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className={cn("relative flex items-center justify-center", className)}
+      className={cn(
+        "relative flex items-center justify-center [perspective:1600px]",
+        className
+      )}
     >
       {/* Cinematic light rays */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -110,17 +113,23 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         <motion.div
           animate={{ y: [0, -12, 0] }}
           transition={{ duration: 5.5, ease: "easeInOut", repeat: Infinity }}
-          className="relative"
+          className="relative [transform-style:preserve-3d]"
         >
-          <Image
-            src="/cake.png"
-            alt="Chocolate celebration cake"
-            width={840}
-            height={840}
-            priority
-            sizes="(min-width:1024px) 840px, (min-width:640px) 720px, 380px"
-            className="h-[380px] w-[336px] object-contain drop-shadow-[0_50px_70px_rgba(0,0,0,0.5)] sm:h-[690px] sm:w-[603px] lg:h-[840px] lg:w-[735px]"
-          />
+          <motion.div
+            animate={{ rotateY: [-14, 14, -14], rotateX: [6, -6, 6] }}
+            transition={{ duration: 9, ease: "easeInOut", repeat: Infinity }}
+            className="[transform-style:preserve-3d]"
+          >
+            <Image
+              src="/cake.png"
+              alt="Chocolate celebration cake"
+              width={1140}
+              height={1140}
+              priority
+              sizes="(min-width:1024px) 1140px, (min-width:640px) 1020px, 420px"
+              className="h-[440px] w-[389px] object-contain drop-shadow-[0_50px_70px_rgba(0,0,0,0.55)] sm:h-[930px] sm:w-[812px] lg:h-[1134px] lg:w-[990px]"
+            />
+          </motion.div>
         </motion.div>
 
         {/* Orbiting decorative particles */}
