@@ -71,7 +71,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_55%,rgba(0,0,0,0.65)_100%)]" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-center gap-10 px-6 pt-28 pb-16 md:px-12 lg:grid-cols-[1fr_1.5fr] lg:gap-6 lg:px-16 lg:pt-32">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_1.5fr] lg:gap-6 lg:px-16 lg:pt-24">
         {/* Left — editorial copy */}
         <div className="max-w-xl">
           <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
@@ -115,7 +115,7 @@ export function Hero() {
         </div>
 
         {/* Right — floating chocolate cake */}
-        <FloatingCake className="mx-auto h-[500px] w-full max-w-lg sm:h-[980px] lg:h-[1180px] lg:max-w-none lg:pt-10" />
+        <FloatingCake className="mx-auto h-[500px] w-full max-w-lg sm:h-[980px] lg:h-[1180px] lg:max-w-none" />
       </div>
 
       {/* Bottom feature strip */}
