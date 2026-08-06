@@ -7,6 +7,8 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FeatureStrip } from "@/components/hero/feature-strip";
 import { FloatingCake } from "@/components/hero/floating-cake";
+import { ChocolateParticles } from "@/components/hero/chocolate-particles";
+import { Candies } from "@/components/hero/candies";
 
 const script = Great_Vibes({
   subsets: ["latin"],
@@ -71,6 +73,10 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_55%,rgba(0,0,0,0.65)_100%)]" />
       </div>
 
+      {/* Chocolate shards, gold flakes, and candies drifting over the hero */}
+      <ChocolateParticles />
+      <Candies />
+
       <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_1.5fr] lg:gap-6 lg:px-16 lg:pt-24">
         {/* Left — editorial copy */}
         <div className="max-w-xl">
@@ -115,7 +121,7 @@ export function Hero() {
         </div>
 
         {/* Right — floating chocolate cake */}
-        <FloatingCake className="mx-auto h-[360px] w-full max-w-md sm:h-[560px] lg:h-[720px] lg:max-w-xl" />
+        <FloatingCake className="mx-auto h-[400px] w-full max-w-md sm:h-[640px] lg:h-[840px] lg:max-w-xl" />
       </div>
 
       {/* Bottom feature strip */}

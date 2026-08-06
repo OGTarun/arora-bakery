@@ -43,13 +43,13 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const cupcakeRotX = useTransform(y, (v) => v * -14);
   const cupcakeRotY = useTransform(x, (v) => v * 16);
 
-  /* Four cupcakes — small garnish, framed around the cake, never competing. */
+  /* Four cupcakes — small garnish tucked around the cake, mostly behind it. */
   const cupcakes = [
     {
       id: 1,
-      pos: "right-[6%] top-[10%]",
-      size: "h-20 w-auto lg:h-28",
-      z: "z-20",
+      pos: "right-[2%] top-[6%]",
+      size: "h-12 w-auto lg:h-16",
+      z: "z-0",
       visibility: "block",
       dur: 5,
       rock: 16,
@@ -59,9 +59,9 @@ export function FloatingCake({ className }: FloatingCakeProps) {
     },
     {
       id: 2,
-      pos: "left-[4%] bottom-[6%]",
-      size: "h-16 w-auto lg:h-24",
-      z: "z-20",
+      pos: "left-[4%] top-[2%]",
+      size: "h-12 w-auto lg:h-16",
+      z: "z-0",
       visibility: "hidden sm:block",
       dur: 6.4,
       rock: 18,
@@ -71,9 +71,9 @@ export function FloatingCake({ className }: FloatingCakeProps) {
     },
     {
       id: 3,
-      pos: "right-[0%] top-[52%]",
-      size: "h-20 w-auto lg:h-28",
-      z: "z-30",
+      pos: "right-[0%] bottom-[2%]",
+      size: "h-14 w-auto lg:h-20",
+      z: "z-20",
       visibility: "hidden md:block",
       dur: 7,
       rock: 13,
@@ -83,9 +83,9 @@ export function FloatingCake({ className }: FloatingCakeProps) {
     },
     {
       id: 4,
-      pos: "left-[30%] top-[2%]",
+      pos: "left-[2%] bottom-[6%]",
       size: "h-14 w-auto lg:h-20",
-      z: "z-0",
+      z: "z-20",
       visibility: "hidden lg:block",
       dur: 5.8,
       rock: 15,
@@ -181,11 +181,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
             <Image
               src="/cake.png"
               alt="Chocolate celebration cake"
-              width={700}
-              height={800}
+              width={714}
+              height={816}
               priority
-              sizes="(min-width:1024px) 700px, (min-width:640px) 520px, 320px"
-              className="h-[320px] w-[280px] object-contain drop-shadow-[0_60px_80px_rgba(0,0,0,0.6)] sm:h-[520px] sm:w-[455px] lg:h-[680px] lg:w-[595px]"
+              sizes="(min-width:1024px) 714px, (min-width:640px) 560px, 360px"
+              className="h-[384px] w-[336px] object-contain drop-shadow-[0_65px_90px_rgba(0,0,0,0.6)] sm:h-[624px] sm:w-[546px] lg:h-[816px] lg:w-[714px]"
             />
           </motion.div>
         </motion.div>

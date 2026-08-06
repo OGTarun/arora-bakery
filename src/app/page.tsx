@@ -8,11 +8,13 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { VisitUs } from "@/components/sections/VisitUs";
 import { Footer } from "@/components/sections/Footer";
 import { Preloader } from "@/components/ui/preloader";
+import { ChocolateDust } from "@/components/ui/chocolate-dust";
 
 export default function Home() {
   return (
     <>
       <Preloader />
+      <ChocolateDust />
       <Navbar />
       <main>
         <Hero />
