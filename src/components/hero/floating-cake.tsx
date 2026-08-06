@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import {
   motion,
   useMotionValue,
@@ -8,7 +9,6 @@ import {
   useTransform,
 } from "framer-motion";
 
-import { ChocolateCake } from "./chocolate-cake";
 import { Fog } from "./fog";
 import { Glow } from "./glow";
 import { Particles } from "./particles";
@@ -112,7 +112,36 @@ export function FloatingCake({ className }: FloatingCakeProps) {
           transition={{ duration: 5.5, ease: "easeInOut", repeat: Infinity }}
           className="relative"
         >
-          <ChocolateCake className="h-[300px] w-[262px] drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)] sm:h-[400px] sm:w-[350px] lg:h-[460px] lg:w-[402px]" />
+          <Image
+            src="/cake.png"
+            alt="Chocolate celebration cake"
+            width={460}
+            height={460}
+            priority
+            sizes="(min-width:1024px) 460px, (min-width:640px) 400px, 300px"
+            className="h-[300px] w-[262px] object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)] sm:h-[400px] sm:w-[350px] lg:h-[460px] lg:w-[402px]"
+          />
+        </motion.div>
+
+        {/* Sprinkles drifting beside the cake */}
+        <motion.div
+          animate={{ y: [0, -18, 0], rotate: [0, 6, 0] }}
+          transition={{
+            duration: 6.5,
+            ease: "easeInOut",
+            repeat: Infinity,
+            delay: 0.8,
+          }}
+          className="absolute -right-2 top-6 z-20 hidden sm:block"
+          aria-hidden="true"
+        >
+          <Image
+            src="/sprinkles.png"
+            alt=""
+            width={160}
+            height={160}
+            className="h-32 w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.45)]"
+          />
         </motion.div>
 
         {/* Orbiting decorative particles */}
