@@ -37,6 +37,12 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const rotateX = useTransform(y, (v) => v * -16);
   const rotateY = useTransform(x, (v) => v * 18);
 
+  /* Cupcake — subtler parallax so it reads as a separate floating layer. */
+  const cupcakeX = useTransform(x, (v) => v * 22);
+  const cupcakeY = useTransform(y, (v) => v * 15);
+  const cupcakeRotX = useTransform(y, (v) => v * -14);
+  const cupcakeRotY = useTransform(x, (v) => v * 16);
+
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
@@ -134,6 +140,40 @@ export function FloatingCake({ className }: FloatingCakeProps) {
 
         {/* Orbiting decorative particles */}
         <Particles />
+      </motion.div>
+
+      {/* Cupcake — same floating 3D treatment, anchored clear of the cake */}
+      <motion.div
+        style={{
+          x: cupcakeX,
+          y: cupcakeY,
+          rotateX: cupcakeRotX,
+          rotateY: cupcakeRotY,
+        }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: EASE, delay: 0.6 }}
+        className="pointer-events-none absolute -bottom-4 -left-6 z-20 hidden md:block lg:-bottom-12 lg:-left-14"
+      >
+        <motion.div
+          animate={{ y: [0, -16, 0] }}
+          transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+          className="[transform-style:preserve-3d]"
+        >
+          <motion.div
+            animate={{ rotateY: [-18, 18, -18], rotateX: [8, -8, 8] }}
+            transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
+            className="[transform-style:preserve-3d]"
+          >
+            <Image
+              src="/cupcake.png"
+              alt="Frosted cupcake"
+              width={780}
+              height={520}
+              className="h-[340px] w-auto object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)] lg:h-[560px]"
+            />
+          </motion.div>
+        </motion.div>
       </motion.div>
     </div>
   );
