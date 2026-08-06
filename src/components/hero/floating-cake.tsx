@@ -43,6 +43,58 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const cupcakeRotX = useTransform(y, (v) => v * -14);
   const cupcakeRotY = useTransform(x, (v) => v * 16);
 
+  /* Four cupcakes, asymmetrically placed and sized for a balanced scatter. */
+  const cupcakes = [
+    {
+      id: 1,
+      pos: "right-[4%] top-[14%]",
+      size: "h-36 w-auto lg:h-56",
+      z: "z-20",
+      visibility: "block",
+      dur: 5,
+      rock: 16,
+      rot: 8,
+      phase: 0,
+      delay: 0.7,
+    },
+    {
+      id: 2,
+      pos: "left-[2%] bottom-[8%]",
+      size: "h-28 w-auto lg:h-44",
+      z: "z-20",
+      visibility: "hidden sm:block",
+      dur: 6.4,
+      rock: 18,
+      rot: 9,
+      phase: 1.4,
+      delay: 1,
+    },
+    {
+      id: 3,
+      pos: "right-[10%] bottom-[34%]",
+      size: "h-32 w-auto lg:h-48",
+      z: "z-30",
+      visibility: "hidden md:block",
+      dur: 7,
+      rock: 13,
+      rot: 10,
+      phase: 2.4,
+      delay: 1.2,
+    },
+    {
+      id: 4,
+      pos: "left-[18%] top-[6%]",
+      size: "h-24 w-auto lg:h-40",
+      z: "z-0",
+      visibility: "hidden lg:block",
+      dur: 5.8,
+      rock: 15,
+      rot: 7,
+      phase: 3.1,
+      delay: 1.4,
+    },
+  ];
+
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
@@ -60,7 +112,7 @@ export function FloatingCake({ className }: FloatingCakeProps) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn(
-        "relative flex items-center justify-center [perspective:1600px]",
+        "relative flex items-start justify-center [perspective:1600px]",
         className
       )}
     >
@@ -142,39 +194,50 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         <Particles />
       </motion.div>
 
-      {/* Cupcake — same floating 3D treatment, anchored clear of the cake */}
-      <motion.div
-        style={{
-          x: cupcakeX,
-          y: cupcakeY,
-          rotateX: cupcakeRotX,
-          rotateY: cupcakeRotY,
-        }}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.4, ease: EASE, delay: 0.6 }}
-        className="pointer-events-none absolute -bottom-4 -left-6 z-20 hidden md:block lg:-bottom-12 lg:-left-14"
-      >
+      {/* Four cupcakes — small, asymmetric, floating around the cake */}
+      {cupcakes.map((c) => (
         <motion.div
-          animate={{ y: [0, -16, 0] }}
-          transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
-          className="[transform-style:preserve-3d]"
+          key={c.id}
+          style={{
+            x: cupcakeX,
+            y: cupcakeY,
+            rotateX: cupcakeRotX,
+            rotateY: cupcakeRotY,
+          }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.4, ease: EASE, delay: c.delay }}
+          className={`pointer-events-none absolute ${c.pos} ${c.z} ${c.visibility}`}
         >
           <motion.div
-            animate={{ rotateY: [-18, 18, -18], rotateX: [8, -8, 8] }}
-            transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
+            animate={{ y: [0, -16, 0] }}
+            transition={{
+              duration: c.dur,
+              ease: "easeInOut",
+              repeat: Infinity,
+              delay: c.phase,
+            }}
             className="[transform-style:preserve-3d]"
           >
-            <Image
-              src="/cupcake.png"
-              alt="Frosted cupcake"
-              width={780}
-              height={520}
-              className="h-[340px] w-auto object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.5)] lg:h-[560px]"
-            />
+            <motion.div
+              animate={{
+                rotateY: [-c.rock, c.rock, -c.rock],
+                rotateX: [c.rock * 0.5, -c.rock * 0.5, c.rock * 0.5],
+              }}
+              transition={{ duration: c.rot, ease: "easeInOut", repeat: Infinity }}
+              className="[transform-style:preserve-3d]"
+            >
+              <Image
+                src="/cupcake.png"
+                alt="Frosted cupcake"
+                width={300}
+                height={200}
+                className={`${c.size} object-contain drop-shadow-[0_25px_40px_rgba(0,0,0,0.5)]`}
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
+      ))}
     </div>
   );
 }
