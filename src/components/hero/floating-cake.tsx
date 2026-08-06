@@ -181,11 +181,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
             <Image
               src="/cake.png"
               alt="Chocolate celebration cake"
-              width={714}
-              height={816}
+              width={928}
+              height={1060}
               priority
-              sizes="(min-width:1024px) 714px, (min-width:640px) 560px, 360px"
-              className="h-[384px] w-[336px] object-contain drop-shadow-[0_65px_90px_rgba(0,0,0,0.6)] sm:h-[624px] sm:w-[546px] lg:h-[816px] lg:w-[714px]"
+              sizes="(min-width:1024px) 928px, (min-width:640px) 720px, 440px"
+              className="h-[499px] w-[437px] object-contain drop-shadow-[0_70px_95px_rgba(0,0,0,0.6)] sm:h-[811px] sm:w-[710px] lg:h-[1061px] lg:w-[928px]"
             />
           </motion.div>
         </motion.div>
