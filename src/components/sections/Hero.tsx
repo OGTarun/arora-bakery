@@ -82,14 +82,9 @@ export function Hero() {
       <CupcakeScatter />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_0.85fr] lg:gap-8 lg:px-16 lg:pt-24">
-        {/* Left — editorial copy */}
-        <div className="relative z-20 max-w-xl">
-          <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            Crafted Fresh Every Day
-          </span>
-
-          <h1 className="mt-7 font-heading text-[2.9rem] font-medium leading-[1.02] tracking-tight text-[#fbf1e2] text-balance sm:text-6xl xl:text-7xl">
+        {/* Left — editorial copy, fills roughly half the viewport width */}
+        <div className="relative z-20 w-full lg:max-w-full">
+          <h1 className="mt-0 font-heading text-[2.9rem] font-medium leading-[1.0] tracking-tight text-[#fbf1e2] text-balance sm:text-7xl xl:text-8xl">
             <span className="hero-line block">Where Every</span>
             <span className={`hero-line block text-[#ecc27a] ${script.className}`}>
               Celebration
@@ -97,7 +92,7 @@ export function Hero() {
             <span className="hero-line block">Begins</span>
           </h1>
 
-          <p className="hero-para mt-6 max-w-md text-base leading-relaxed text-[#c9b7a2] sm:text-lg">
+          <p className="hero-para mt-6 max-w-lg text-base leading-relaxed text-[#c9b7a2] sm:text-lg">
             Handcrafted cakes and pastries for life&apos;s most memorable
             moments — slow-baked, beautifully finished, and made with love in
             Khanna.
@@ -131,6 +126,17 @@ export function Hero() {
       {/* Bottom feature strip */}
       <div className="relative z-20 -mb-8 lg:mb-0">
         <FeatureStrip />
+      </div>
+
+      {/* Bottom center badge */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-44 z-20 flex justify-center md:bottom-48"
+        aria-hidden="true"
+      >
+        <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
+          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+          Crafted Fresh Every Day
+        </span>
       </div>
 
       {/* Scroll hint */}

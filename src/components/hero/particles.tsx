@@ -1,65 +1,128 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useTransform, type MotionValue } from "framer-motion";
 
-import { cn } from "@/lib/utils";
+type ParticleType = {
+  bg: string;
+  shape: string;
+  glow?: boolean;
+  ember?: boolean;
+};
 
-interface Particle {
-  size: string;
-  pos: string;
-  dur: number;
-  gold: boolean;
-  idx: number;
-}
-
-/* Orbiting / drifting particles — slow, desynced, elegant. Brown shards and gold flakes. */
-const orbit: Particle[] = [
-  { size: "h-3 w-3", pos: "top-[12%] left-[8%]", dur: 7, gold: true, idx: 0 },
-  { size: "h-2 w-2", pos: "top-[30%] right-[6%]", dur: 9, gold: false, idx: 1 },
-  { size: "h-2.5 w-2.5", pos: "bottom-[22%] left-[14%]", dur: 8, gold: false, idx: 2 },
-  { size: "h-1.5 w-1.5", pos: "bottom-[10%] right-[18%]", dur: 6, gold: true, idx: 3 },
-  { size: "h-2 w-2", pos: "top-[58%] right-[30%]", dur: 10, gold: true, idx: 4 },
-  { size: "h-1 w-1", pos: "top-[16%] right-[40%]", dur: 7.5, gold: false, idx: 5 },
-  { size: "h-2.5 w-2.5", pos: "top-[8%] right-[24%]", dur: 11, gold: false, idx: 6 },
-  { size: "h-1.5 w-1.5", pos: "bottom-[30%] right-[8%]", dur: 8.5, gold: false, idx: 7 },
-  { size: "h-2 w-2", pos: "top-[46%] left-[22%]", dur: 9.5, gold: false, idx: 8 },
-  { size: "h-1 w-1", pos: "top-[70%] left-[6%]", dur: 6.5, gold: false, idx: 9 },
-  { size: "h-3 w-3", pos: "bottom-[6%] left-[26%]", dur: 10.5, gold: false, idx: 10 },
-  { size: "h-1.5 w-1.5", pos: "top-[24%] left-[34%]", dur: 8, gold: false, idx: 11 },
-  { size: "h-2 w-2", pos: "top-[4%] left-[48%]", dur: 7, gold: true, idx: 12 },
-  { size: "h-1.5 w-1.5", pos: "bottom-[44%] right-[38%]", dur: 9, gold: false, idx: 13 },
-  { size: "h-2.5 w-2.5", pos: "top-[62%] left-[38%]", dur: 11.5, gold: false, idx: 14 },
-  { size: "h-1 w-1", pos: "bottom-[18%] right-[44%]", dur: 7.5, gold: false, idx: 15 },
+const TYPES: ParticleType[] = [
+  { bg: "#8a5a3b", shape: "rounded-full" },
+  { bg: "#6b4226", shape: "rounded-full" },
+  { bg: "#ecc27e", shape: "rounded-full", glow: true },
+  { bg: "#f7f1e6", shape: "rounded-[3px] rotate-45" },
+  { bg: "#ffb45e", shape: "rounded-full", ember: true },
+  { bg: "#7a4526", shape: "rounded-full" },
 ];
 
-export function Particles() {
+interface Cfg {
+  r: number;
+  ry: number;
+  dur: number;
+  phase: number;
+  size: number;
+  tw: number;
+  twDelay: number;
+  o: number;
+  blur: number;
+  type: ParticleType;
+  px: number;
+}
+
+const COUNT = 36;
+
+/* Deterministic configs so SSR/hydration stays stable. */
+const configs: Cfg[] = Array.from({ length: COUNT }).map((_, i) => {
+  const r = 110 + ((i * 37) % 210);
+  const type = TYPES[i % TYPES.length];
+  return {
+    r,
+    ry: r * (0.5 + ((i * 7) % 40) / 100),
+    dur: 9 + (i % 9),
+    phase: (i * 13) % 10,
+    size: 3 + (i % 5),
+    tw: 3 + (i % 4),
+    twDelay: (i * 7) % 6,
+    o: 0.3 + (i % 4) * 0.16,
+    blur: i % 5 === 0 ? 1.5 : i % 4 === 0 ? 1 : 0,
+    type,
+    px: 0.06 + (i % 3) * 0.03,
+  };
+});
+
+function Particle({
+  cfg,
+  sx,
+  sy,
+}: {
+  cfg: Cfg;
+  sx: MotionValue<number>;
+  sy: MotionValue<number>;
+}) {
+  const px = useTransform(sx, (v) => v * cfg.px * 30);
+  const py = useTransform(sy, (v) => v * cfg.px * 20);
+
   return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      {orbit.map((p) => (
+    <motion.div
+      style={{ x: px, y: py }}
+      className="absolute top-1/2 left-1/2"
+    >
+      <motion.div
+        animate={{ x: [-cfg.r, 0, cfg.r, 0, -cfg.r], y: [0, -cfg.ry, 0, cfg.ry, 0] }}
+        transition={{
+          duration: cfg.dur,
+          ease: "easeInOut",
+          repeat: Infinity,
+          delay: cfg.phase,
+        }}
+      >
         <motion.span
-          key={p.idx}
-          className={cn(
-            "absolute rounded-full",
-            p.pos,
-            p.size,
-            p.gold
-              ? "bg-[#ecc27e]"
-              : "bg-[#8a5a3b]"
-          )}
-          animate={{
-            y: [0, -14, 0],
-            x: [0, 6, 0],
-            opacity: [0.5, 1, 0.5],
-            scale: [0.9, 1.1, 0.9],
-          }}
+          animate={{ opacity: [cfg.o * 0.3, cfg.o, cfg.o * 0.3], scale: [0.85, 1.1, 0.85] }}
           transition={{
-            duration: p.dur,
+            duration: cfg.tw,
             ease: "easeInOut",
             repeat: Infinity,
-            delay: p.idx * 0.6,
+            delay: cfg.twDelay,
           }}
-          style={{ boxShadow: "0 0 8px rgba(232,183,117,0.4)" }}
+          className={`absolute ${cfg.type.shape}`}
+          style={{
+            width: cfg.size,
+            height: cfg.size,
+            background: cfg.type.bg,
+            left: -cfg.size / 2,
+            top: -cfg.size / 2,
+            filter: `blur(${cfg.blur}px)`,
+            boxShadow: cfg.type.glow
+              ? "0 0 6px rgba(232,183,117,0.55)"
+              : cfg.type.ember
+              ? "0 0 8px rgba(255,150,60,0.6)"
+              : "0 0 4px rgba(0,0,0,0.25)",
+          }}
         />
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* Chocolate crumbs, cocoa dust, gold flakes, sugar crystals, embers and
+   curls orbiting around the cake in desynced elliptical paths. */
+export function Particles({
+  x,
+  y,
+}: {
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+}) {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0"
+      aria-hidden="true"
+    >
+      {configs.map((c, i) => (
+        <Particle key={i} cfg={c} sx={x} sy={y} />
       ))}
     </div>
   );

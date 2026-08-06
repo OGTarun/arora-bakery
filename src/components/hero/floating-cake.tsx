@@ -33,9 +33,9 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const translateX = useTransform(x, (v) => v * 30);
   const translateY = useTransform(y, (v) => v * 22);
 
-  /* 3D tilt based on cursor position. */
-  const rotateX = useTransform(y, (v) => v * -16);
-  const rotateY = useTransform(x, (v) => v * 18);
+  /* 3D tilt based on cursor position — makes the cake feel alive. */
+  const rotateX = useTransform(y, (v) => v * -18);
+  const rotateY = useTransform(x, (v) => v * 20);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -76,20 +76,20 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         />
       </div>
 
-      {/* Floating dust / bokeh */}
+      {/* Floating dust / bokeh — kept subtle so the cake is the focus */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        {Array.from({ length: 10 }).map((_, i) => (
+        {Array.from({ length: 5 }).map((_, i) => (
           <span
             key={i}
-            className="absolute rounded-full bg-white/30 backdrop-blur-sm"
+            className="absolute rounded-full bg-white/20 backdrop-blur-sm"
             style={{
               width: 3 + (i % 3) * 2,
               height: 3 + (i % 3) * 2,
-              left: `${5 + ((i * 17) % 90)}%`,
-              top: `${8 + ((i * 29) % 84)}%`,
-              opacity: 0.25 + (i % 4) * 0.12,
+              left: `${8 + ((i * 31) % 84)}%`,
+              top: `${12 + ((i * 47) % 72)}%`,
+              opacity: 0.12 + (i % 3) * 0.06,
               animation: `dust-float ${6 + (i % 5)}s ease-in-out ${
-                i * 0.6
+                i * 0.8
               }s infinite alternate`,
             }}
           />
@@ -111,29 +111,37 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         className="relative z-10 will-change-transform [transform-style:preserve-3d]"
       >
         <motion.div
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 5.5, ease: "easeInOut", repeat: Infinity }}
+          animate={{ y: [0, -18, 0] }}
+          transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
           className="relative [transform-style:preserve-3d]"
         >
           <motion.div
-            animate={{ rotateY: [-14, 14, -14], rotateX: [6, -6, 6] }}
+            animate={{ rotateY: [-15, 15, -15], rotateX: [7, -7, 7] }}
             transition={{ duration: 9, ease: "easeInOut", repeat: Infinity }}
             className="[transform-style:preserve-3d]"
           >
             <Image
               src="/cake.png"
               alt="Chocolate celebration cake"
-              width={560}
-              height={374}
+              width={690}
+              height={460}
               priority
-              sizes="(min-width:1024px) 560px, (min-width:640px) 510px, 420px"
-              className="h-[280px] w-[420px] object-contain drop-shadow-[0_45px_70px_rgba(0,0,0,0.55)] sm:h-[340px] sm:w-[510px] lg:h-[373px] lg:w-[560px]"
+              sizes="(min-width:1024px) 690px, (min-width:640px) 600px, 420px"
+              className="h-[280px] w-[420px] object-contain drop-shadow-[0_45px_70px_rgba(0,0,0,0.55)] sm:h-[400px] sm:w-[600px] lg:h-[460px] lg:w-[690px]"
             />
           </motion.div>
         </motion.div>
 
-        {/* Orbiting decorative particles */}
-        <Particles />
+        {/* Soft ground shadow that breathes with the float */}
+        <motion.div
+          className="absolute -bottom-10 left-1/2 h-8 w-[82%] -translate-x-1/2 rounded-full bg-black/45 blur-xl"
+          animate={{ scaleX: [1, 0.72, 1], opacity: [0.5, 0.28, 0.5] }}
+          transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+          aria-hidden="true"
+        />
+
+        {/* Orbiting particles wrapping around the cake */}
+        <Particles x={x} y={y} />
       </motion.div>
     </div>
   );
