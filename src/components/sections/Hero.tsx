@@ -9,6 +9,7 @@ import { FeatureStrip } from "@/components/hero/feature-strip";
 import { FloatingCake } from "@/components/hero/floating-cake";
 import { ChocolateParticles } from "@/components/hero/chocolate-particles";
 import { Candies } from "@/components/hero/candies";
+import { CupcakeScatter } from "@/components/hero/cupcake-scatter";
 
 const script = Great_Vibes({
   subsets: ["latin"],
@@ -77,7 +78,10 @@ export function Hero() {
       <ChocolateParticles />
       <Candies />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_1.5fr] lg:gap-6 lg:px-16 lg:pt-24">
+      {/* Cupcakes scattered around the hero edges */}
+      <CupcakeScatter />
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_0.85fr] lg:gap-8 lg:px-16 lg:pt-24">
         {/* Left — editorial copy */}
         <div className="relative z-20 max-w-xl">
           <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
@@ -121,7 +125,7 @@ export function Hero() {
         </div>
 
         {/* Right — floating chocolate cake */}
-        <FloatingCake className="mx-auto -mt-4 h-[360px] w-full max-w-md sm:h-[560px] lg:-mt-6 lg:h-[720px] lg:max-w-xl" />
+        <FloatingCake className="mx-auto h-[300px] w-full max-w-md sm:h-[360px] sm:max-w-xl lg:-mt-1 lg:h-[400px] lg:max-w-[600px] lg:justify-center" />
       </div>
 
       {/* Bottom feature strip */}

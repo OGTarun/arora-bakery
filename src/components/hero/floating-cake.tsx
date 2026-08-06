@@ -37,64 +37,6 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const rotateX = useTransform(y, (v) => v * -16);
   const rotateY = useTransform(x, (v) => v * 18);
 
-  /* Cupcake — subtler parallax so it reads as a separate floating layer. */
-  const cupcakeX = useTransform(x, (v) => v * 22);
-  const cupcakeY = useTransform(y, (v) => v * 15);
-  const cupcakeRotX = useTransform(y, (v) => v * -14);
-  const cupcakeRotY = useTransform(x, (v) => v * 16);
-
-  /* Four cupcakes — small garnish tucked around the cake, mostly behind it. */
-  const cupcakes = [
-    {
-      id: 1,
-      pos: "right-[2%] top-[6%]",
-      size: "h-12 w-auto lg:h-16",
-      z: "z-0",
-      visibility: "block",
-      dur: 5,
-      rock: 16,
-      rot: 8,
-      phase: 0,
-      delay: 0.7,
-    },
-    {
-      id: 2,
-      pos: "left-[4%] top-[2%]",
-      size: "h-12 w-auto lg:h-16",
-      z: "z-0",
-      visibility: "hidden sm:block",
-      dur: 6.4,
-      rock: 18,
-      rot: 9,
-      phase: 1.4,
-      delay: 1,
-    },
-    {
-      id: 3,
-      pos: "right-[0%] bottom-[2%]",
-      size: "h-14 w-auto lg:h-20",
-      z: "z-20",
-      visibility: "hidden md:block",
-      dur: 7,
-      rock: 13,
-      rot: 10,
-      phase: 2.4,
-      delay: 1.2,
-    },
-    {
-      id: 4,
-      pos: "left-[2%] bottom-[6%]",
-      size: "h-14 w-auto lg:h-20",
-      z: "z-20",
-      visibility: "hidden lg:block",
-      dur: 5.8,
-      rock: 15,
-      rot: 7,
-      phase: 3.1,
-      delay: 1.4,
-    },
-  ];
-
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     mx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
@@ -116,17 +58,17 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         className
       )}
     >
-      {/* Cinematic light rays */}
+      {/* Cinematic light rays behind the cake */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div
-          className="absolute top-0 left-[10%] h-full w-40 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent blur-2xl"
+          className="absolute top-0 left-[8%] h-full w-48 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent blur-2xl"
           style={{
             ["--ray-rot" as string]: "12deg",
             animation: "ray-sway 9s ease-in-out infinite",
           }}
         />
         <div
-          className="absolute top-0 right-[12%] h-full w-32 bg-gradient-to-r from-transparent via-[#e8b765]/[0.07] to-transparent blur-2xl"
+          className="absolute top-0 right-[10%] h-full w-40 bg-gradient-to-r from-transparent via-[#e8b765]/[0.1] to-transparent blur-2xl"
           style={{
             ["--ray-rot" as string]: "-6deg",
             animation: "ray-sway 11s ease-in-out infinite reverse",
@@ -181,11 +123,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
             <Image
               src="/cake.png"
               alt="Chocolate celebration cake"
-              width={1470}
-              height={980}
+              width={560}
+              height={374}
               priority
-              sizes="(min-width:1024px) 1470px, (min-width:640px) 1140px, 690px"
-              className="h-[460px] w-[690px] object-contain drop-shadow-[0_70px_95px_rgba(0,0,0,0.6)] sm:h-[760px] sm:w-[1140px] lg:h-[980px] lg:w-[1470px]"
+              sizes="(min-width:1024px) 560px, (min-width:640px) 510px, 420px"
+              className="h-[280px] w-[420px] object-contain drop-shadow-[0_45px_70px_rgba(0,0,0,0.55)] sm:h-[340px] sm:w-[510px] lg:h-[373px] lg:w-[560px]"
             />
           </motion.div>
         </motion.div>
@@ -193,51 +135,6 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         {/* Orbiting decorative particles */}
         <Particles />
       </motion.div>
-
-      {/* Four cupcakes — small, asymmetric, floating around the cake */}
-      {cupcakes.map((c) => (
-        <motion.div
-          key={c.id}
-          style={{
-            x: cupcakeX,
-            y: cupcakeY,
-            rotateX: cupcakeRotX,
-            rotateY: cupcakeRotY,
-          }}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: EASE, delay: c.delay }}
-          className={`pointer-events-none absolute ${c.pos} ${c.z} ${c.visibility}`}
-        >
-          <motion.div
-            animate={{ y: [0, -16, 0] }}
-            transition={{
-              duration: c.dur,
-              ease: "easeInOut",
-              repeat: Infinity,
-              delay: c.phase,
-            }}
-            className="[transform-style:preserve-3d]"
-          >
-            <motion.div
-              animate={{
-                rotateY: [-c.rock, c.rock, -c.rock],
-                rotateX: [c.rock * 0.5, -c.rock * 0.5, c.rock * 0.5],
-              }}
-              transition={{ duration: c.rot, ease: "easeInOut", repeat: Infinity }}
-              className="[transform-style:preserve-3d]"
-            >
-              <Image
-                src="/cupcake.png"
-                alt="Frosted cupcake"
-                width={300}
-                height={200}
-                className={`${c.size} object-contain drop-shadow-[0_25px_40px_rgba(0,0,0,0.5)]`}
-              />
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      ))}
     </div>
   );
 }

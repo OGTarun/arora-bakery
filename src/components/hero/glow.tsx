@@ -19,14 +19,14 @@ export function Glow({ x, y, className }: GlowProps) {
   const background = useTransform(
     [glowX, glowY] as never,
     ([gx, gy]: number[]) =>
-      `radial-gradient(circle at ${gx}% ${gy}%, rgb(232 183 101 / 0.4), transparent 60%)`
+      `radial-gradient(circle at ${gx}% ${gy}%, rgb(232 183 101 / 0.38), transparent 65%)`
   );
 
   return (
     <motion.div
       style={{ background }}
       className={cn(
-        "absolute bottom-4 left-1/2 h-40 w-[70%] -translate-x-1/2 rounded-full blur-3xl",
+        "absolute top-1/2 left-1/2 h-[85%] w-[130%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[90px]",
         className
       )}
       aria-hidden="true"
