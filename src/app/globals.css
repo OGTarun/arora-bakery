@@ -104,6 +104,27 @@
   }
 }
 
+@keyframes ray-sway {
+  0%,
+  100% {
+    transform: rotate(var(--ray-rot, 12deg)) translateX(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: rotate(var(--ray-rot, 12deg)) translateX(24px);
+    opacity: 1;
+  }
+}
+
+@keyframes dust-float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-26px) scale(1.15);
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /*  Base                                                               */
 /* ------------------------------------------------------------------ */

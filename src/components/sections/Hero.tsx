@@ -1,237 +1,133 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { MotionConfig, motion, useTransform } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Great_Vibes } from "next/font/google";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-import { FloatingWorld } from "@/components/hero/floating-world";
 import { Button } from "@/components/ui/button";
-import { useMouseParallax } from "@/hooks/use-mouse-parallax";
-import { cn } from "@/lib/utils";
+import { FeatureStrip } from "@/components/hero/feature-strip";
+import { FloatingCake } from "@/components/hero/floating-cake";
 
-gsap.registerPlugin(ScrollTrigger);
+const script = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
-const headline: { text: string; italic?: boolean }[] = [
-  { text: "Crafted with" },
-  { text: "Love", italic: true },
-];
+const DURATION = 900;
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const { x: mouseX, y: mouseY } = useMouseParallax();
-
-  /* Subtle depth split — scene drifts with the cursor, copy drifts against. */
-  const scenePX = useTransform(mouseX, (v) => v * 8);
-  const scenePY = useTransform(mouseY, (v) => v * 8);
-  const copyPX = useTransform(mouseX, (v) => v * -5);
-  const glowPX = useTransform(mouseX, (v) => v * 14);
-  const glowPY = useTransform(mouseY, (v) => v * 14);
-
+  /* Entrance choreography — light, slow, cinematic. Reduced-motion safe. */
   useLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    /* Respect reduced motion: skip, leaving content visible. */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
 
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(section);
-      const scene = section.querySelector<HTMLElement>(".hero-scene");
+    const reveal = (sel: string, delay: number, stagger = 120) => {
+      const els = Array.from(section.querySelectorAll<HTMLElement>(sel));
+      els.forEach((el, i) => {
+        el.animate(
+          [
+            { opacity: 0, transform: "translateY(24px)" },
+            { opacity: 1, transform: "translateY(0)" },
+          ],
+          {
+            duration: DURATION,
+            delay: delay + i * stagger,
+            easing: "cubic-bezier(0.22,1,0.36,1)",
+            fill: "backwards",
+          }
+        );
+      });
+    };
 
-      /* Selector hooks into the Floating World (composition untouched). */
-      const clouds = q('[class*="blur-2xl"]:not([class*="bg-secondary/70"])');
-      const cupcake = q("[class~='shadow-float']");
-      const cherry: Element[] = q('[class*="right-[16%]"] > span');
-      const sparkleLayer = scene
-        ? scene.querySelectorAll<HTMLElement>('[class*="pointer-events-none"]')[2]
-        : null;
-
-      if (!reducedMotion) {
-        /* ------------------------------------------------------------------ */
-        /*  Entrance timeline                                                  */
-        /* ------------------------------------------------------------------ */
-        const tl = gsap.timeline({
-          defaults: { ease: "power2.out" },
-          onComplete: () => ScrollTrigger.refresh(),
-        });
-
-        tl.from(q(".hero-backdrop"), { opacity: 0, duration: 1.2, ease: "power1.out" }, 0)
-          .from(clouds, { opacity: 0, duration: 1.6, ease: "power2.out" }, 0.2)
-          .from(q(".hero-scene"), { scale: 0.96, opacity: 0, duration: 1.8, ease: "power3.out" }, 0.3)
-          .from(cupcake, { y: 24, opacity: 0, duration: 1.4, ease: "power3.out" }, 0.7)
-          .from(cherry, { y: -14, scale: 0.6, opacity: 0, duration: 1.1, ease: "back.out(1.6)" }, 1.0)
-          .from(q(".hero-badge"), { y: 16, opacity: 0, duration: 0.8 }, 1.1)
-          .from(
-            q(".hero-line"),
-            { yPercent: 112, duration: 1.3, stagger: 0.12, ease: "power3.out" },
-            1.15
-          )
-          .from(q(".hero-para"), { y: 18, opacity: 0, duration: 0.8 }, 1.6)
-          .from(
-            q(".hero-cta"),
-            { y: 22, opacity: 0, duration: 0.8, ease: "power3.out", clearProps: "transform,opacity" },
-            1.8
-          )
-          .from(
-            q(".hero-cta-alt"),
-            { y: 22, opacity: 0, duration: 0.8, ease: "power3.out", clearProps: "transform,opacity" },
-            "+=0.12"
-          );
-
-        if (sparkleLayer) {
-          tl.from(sparkleLayer, { opacity: 0, duration: 1.3, ease: "power1.out" }, 2.1);
-        }
-        tl.from(q(".hero-cue"), { y: 8, opacity: 0, duration: 1 }, "+=0.15");
-      }
-
-      if (!reducedMotion) {
-        /* ------------------------------------------------------------------ */
-        /*  Scroll effects — deliberately subtle                               */
-        /* ------------------------------------------------------------------ */
-        gsap.to(q(".hero-copy"), {
-          yPercent: 8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-
-        gsap.to(q(".hero-scene"), {
-          yPercent: -14,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-
-        gsap.to(cupcake, {
-          rotation: -2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-
-        gsap.to(clouds, {
-          yPercent: -6,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-    }, section);
-
-    return () => ctx.revert();
+    reveal(".hero-badge", 250);
+    reveal(".hero-line", 450, 140);
+    reveal(".hero-para", 1000);
+    reveal(".hero-cta", 1150);
+    reveal(".hero-cta-alt", 1250);
   }, []);
 
   return (
-    <MotionConfig reducedMotion="user">
-      <section
-        ref={sectionRef}
-        id="home"
-        className="relative flex min-h-[100svh] items-center overflow-hidden"
-      >
-        {/* Dreamy backdrop */}
-        <div
-          className="hero-backdrop pointer-events-none absolute inset-0"
-          aria-hidden="true"
-        >
-          <motion.div
-            style={{ x: glowPX, y: glowPY }}
-            className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,rgb(247_227_207/0.9),transparent_52%)]"
-          />
-          <motion.div
-            style={{ x: glowPX, y: glowPY }}
-            className="absolute -top-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-secondary/60 blur-[120px]"
-          />
-          <motion.div
-            style={{ x: glowPX, y: glowPY }}
-            className="absolute bottom-0 -left-32 h-96 w-96 rounded-full bg-accent/40 blur-[120px]"
-          />
-          <div className="absolute top-1/3 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/10 blur-[100px]" />
-        </div>
+    <section
+      ref={sectionRef}
+      id="home"
+      className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#120a06] text-[#f5e9da]"
+    >
+      {/* Cinematic backdrop — blurred bakery ambience */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_70%_30%,#2a160c_0%,#1a0f09_55%,#120a06_100%)]" />
+        <div className="absolute -top-16 left-1/4 h-80 w-80 rounded-full bg-[#c9873a]/20 blur-[110px]" />
+        <div className="absolute top-1/4 right-[6%] h-72 w-72 rounded-full bg-[#e8b765]/15 blur-[100px]" />
+        <div className="absolute bottom-10 left-[8%] h-64 w-64 rounded-full bg-[#8a5128]/20 blur-[90px]" />
+        <div className="absolute inset-x-0 top-[18%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute inset-x-0 top-[68%] h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_55%,rgba(0,0,0,0.65)_100%)]" />
+      </div>
 
-        <div className="container-px relative z-10 mx-auto grid w-full items-center gap-16 py-28 lg:grid-cols-2 lg:gap-10 lg:py-40">
-          {/* Copy */}
-          <motion.div style={{ x: copyPX }} className="max-w-xl">
-            <div className="hero-copy">
-              <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-primary/20 bg-secondary/50 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-primary">
-                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                Freshly baked everyday
-              </span>
+      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 items-center gap-10 px-6 pt-28 pb-16 md:px-12 lg:grid-cols-2 lg:gap-8 lg:px-20 lg:pt-32">
+        {/* Left — editorial copy */}
+        <div className="max-w-xl">
+          <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
+            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+            Crafted Fresh Every Day
+          </span>
 
-              <h1 className="mt-7 font-heading text-5xl font-medium leading-[1.04] tracking-tight text-foreground text-balance sm:text-6xl xl:text-7xl">
-                {headline.map((line) => (
-                  <span key={line.text} className="block overflow-hidden pb-1">
-                    <span
-                      className={cn(
-                        "hero-line block will-change-transform",
-                        line.italic && "italic text-primary"
-                      )}
-                    >
-                      {line.text}
-                    </span>
-                  </span>
-                ))}
-              </h1>
+          <h1 className="mt-7 font-heading text-[2.9rem] font-medium leading-[1.02] tracking-tight text-[#fbf1e2] text-balance sm:text-6xl xl:text-7xl">
+            <span className="hero-line block">Where Every</span>
+            <span className={`hero-line block text-[#ecc27a] ${script.className}`}>
+              Celebration
+            </span>
+            <span className="hero-line block">Begins</span>
+          </h1>
 
-              <p className="hero-para mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-                A little bakery in Khanna, Punjab — crafting cakes, breads and
-                pastries the way they should be. Slow, honest and beautiful.
-              </p>
+          <p className="hero-para mt-6 max-w-md text-base leading-relaxed text-[#c9b7a2] sm:text-lg">
+            Handcrafted cakes and pastries for life&apos;s most memorable
+            moments — slow-baked, beautifully finished, and made with love in
+            Khanna.
+          </p>
 
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
-                <Button asChild size="lg" className="hero-cta">
-                  <a href="#products">
-                    Explore Menu
-                    <ArrowRight
-                      className="h-4 w-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-1.5"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="hero-cta-alt">
-                  <a href="#contact">Order Cake</a>
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Floating bakery scene */}
-          <div className="hero-scene relative mx-auto h-[440px] w-full max-w-md sm:max-w-lg lg:h-[560px] lg:max-w-none">
-            <motion.div style={{ y: scenePY, x: scenePX }} className="h-full w-full">
-              <FloatingWorld />
-            </motion.div>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <Button asChild size="lg" className="hero-cta">
+              <a href="#signature">
+                Explore Cakes
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-1.5"
+                  aria-hidden="true"
+                />
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="hero-cta-alt border-[#e8b765]/40 text-[#ecc27a] hover:bg-[#e8b765]/10"
+            >
+              <a href="#about">Our Story</a>
+            </Button>
           </div>
         </div>
 
-        {/* Scroll cue */}
-        <div className="hero-cue pointer-events-none absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex" aria-hidden="true">
-          <span className="text-[0.65rem] font-medium uppercase tracking-[0.28em] text-muted-foreground">
-            Scroll
-          </span>
-          <span className="relative h-12 w-px overflow-hidden bg-foreground/10">
-            <span className="absolute inset-x-0 top-0 h-1/2 animate-scroll-hint bg-primary" />
-          </span>
-        </div>
-      </section>
-    </MotionConfig>
+        {/* Right — floating chocolate cake */}
+        <FloatingCake className="mx-auto h-[380px] w-full max-w-md sm:h-[440px] lg:h-[540px] lg:max-w-xl" />
+      </div>
+
+      {/* Bottom feature strip */}
+      <div className="relative z-20 -mb-8 lg:mb-0">
+        <FeatureStrip />
+      </div>
+
+      {/* Soft transition into the next light section */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-24 bg-gradient-to-t from-[#fff8f2] to-transparent"
+        aria-hidden="true"
+      />
+    </section>
   );
 }
