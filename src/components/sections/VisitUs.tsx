@@ -10,9 +10,9 @@ import { contactInfo } from "@/data/site";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const MAP_EMBED =
-  "https://www.google.com/maps?q=30.906964,75.951496&z=15&output=embed";
+  "https://www.google.com/maps?q=30.7032881,76.2256451&z=15&output=embed";
 const MAP_LINK =
-  "https://www.google.com/maps/search/?api=1&query=30.906964,75.951496";
+  "https://www.google.com/maps/search/?api=1&query=30.7032881,76.2256451";
 
 const details = [
   {
