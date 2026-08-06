@@ -115,32 +115,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
           <Image
             src="/cake.png"
             alt="Chocolate celebration cake"
-            width={560}
-            height={560}
+            width={840}
+            height={840}
             priority
-            sizes="(min-width:1024px) 560px, (min-width:640px) 480px, 360px"
-            className="h-[340px] w-[300px] object-contain drop-shadow-[0_50px_70px_rgba(0,0,0,0.5)] sm:h-[460px] sm:w-[402px] lg:h-[560px] lg:w-[490px]"
-          />
-        </motion.div>
-
-        {/* Sprinkles drifting beside the cake */}
-        <motion.div
-          animate={{ y: [0, -18, 0], rotate: [0, 6, 0] }}
-          transition={{
-            duration: 6.5,
-            ease: "easeInOut",
-            repeat: Infinity,
-            delay: 0.8,
-          }}
-          className="absolute -right-2 top-6 z-20 hidden sm:block"
-          aria-hidden="true"
-        >
-          <Image
-            src="/sprinkles.png"
-            alt=""
-            width={200}
-            height={200}
-            className="h-40 w-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.45)]"
+            sizes="(min-width:1024px) 840px, (min-width:640px) 720px, 380px"
+            className="h-[380px] w-[336px] object-contain drop-shadow-[0_50px_70px_rgba(0,0,0,0.5)] sm:h-[690px] sm:w-[603px] lg:h-[840px] lg:w-[735px]"
           />
         </motion.div>
 

@@ -71,7 +71,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_55%,rgba(0,0,0,0.65)_100%)]" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1400px] flex-1 items-center gap-10 px-6 pt-28 pb-16 md:px-12 lg:grid-cols-2 lg:gap-8 lg:px-20 lg:pt-32">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-center gap-10 px-6 pt-28 pb-16 md:px-12 lg:grid-cols-[1fr_1.5fr] lg:gap-6 lg:px-16 lg:pt-32">
         {/* Left — editorial copy */}
         <div className="max-w-xl">
           <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
@@ -115,12 +115,28 @@ export function Hero() {
         </div>
 
         {/* Right — floating chocolate cake */}
-        <FloatingCake className="mx-auto h-[400px] w-full max-w-md sm:h-[500px] lg:h-[620px] lg:max-w-2xl" />
+        <FloatingCake className="mx-auto h-[420px] w-full max-w-lg sm:h-[730px] lg:h-[900px] lg:max-w-none" />
       </div>
 
       {/* Bottom feature strip */}
       <div className="relative z-20 -mb-8 lg:mb-0">
         <FeatureStrip />
+      </div>
+
+      {/* Scroll hint */}
+      <div
+        className="pointer-events-none absolute bottom-24 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
+        aria-hidden="true"
+      >
+        <span className="text-[0.65rem] font-medium uppercase tracking-[0.3em] text-[#c9b7a2]/70">
+          Scroll
+        </span>
+        <span className="relative h-9 w-5 rounded-full border border-white/20">
+          <span
+            className="absolute left-1/2 top-1.5 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#ecc27e]"
+            style={{ animation: "scroll-hint 2s ease-in-out infinite" }}
+          />
+        </span>
       </div>
 
       {/* Soft transition into the next light section */}
