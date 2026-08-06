@@ -9,6 +9,9 @@ import {
 } from "framer-motion";
 
 import { ChocolateCake } from "./chocolate-cake";
+import { Fog } from "./fog";
+import { Glow } from "./glow";
+import { Particles } from "./particles";
 import { cn } from "@/lib/utils";
 
 interface FloatingCakeProps {
@@ -16,16 +19,6 @@ interface FloatingCakeProps {
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-/* Orbiting / drifting particles — slow, desynced, elegant. */
-const orbit = [
-  { size: "h-3 w-3", pos: "top-[12%] left-[8%]", dur: 7, gold: true, idx: 0 },
-  { size: "h-2 w-2", pos: "top-[30%] right-[6%]", dur: 9, gold: false, idx: 1 },
-  { size: "h-2.5 w-2.5", pos: "bottom-[22%] left-[14%]", dur: 8, gold: false, idx: 2 },
-  { size: "h-1.5 w-1.5", pos: "bottom-[10%] right-[18%]", dur: 6, gold: true, idx: 3 },
-  { size: "h-2 w-2", pos: "top-[58%] right-[30%]", dur: 10, gold: true, idx: 4 },
-  { size: "h-1 w-1", pos: "top-[16%] right-[40%]", dur: 7.5, gold: false, idx: 5 },
-];
 
 export function FloatingCake({ className }: FloatingCakeProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -43,10 +36,6 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   /* Slight 3D tilt based on cursor position. */
   const rotateX = useTransform(y, (v) => v * -7);
   const rotateY = useTransform(x, (v) => v * 9);
-
-  /* Lighting shifts with the cursor. */
-  const glowX = useTransform(x, (v) => 50 + v * 34);
-  const glowY = useTransform(y, (v) => 60 + v * 20);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -104,18 +93,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         ))}
       </div>
 
-      {/* Golden under-glow */}
-      <motion.div
-        style={{
-          background: useTransform(
-            [glowX, glowY] as never,
-            ([gx, gy]: number[]) =>
-              `radial-gradient(circle at ${gx}% ${gy}%, rgb(232 183 101 / 0.4), transparent 60%)`
-          ),
-        }}
-        className="absolute bottom-4 left-1/2 h-40 w-[70%] -translate-x-1/2 rounded-full blur-3xl"
-        aria-hidden="true"
-      />
+      {/* Ambient mist behind everything */}
+      <Fog />
+
+      {/* Golden under-glow tracking the cursor */}
+      <Glow x={x} y={y} />
 
       {/* The cake */}
       <motion.div
@@ -134,17 +116,7 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         </motion.div>
 
         {/* Orbiting decorative particles */}
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          {orbit.map((p) => (
-            <motion.span
-              key={p.idx}
-              className={cn("absolute rounded-full", p.pos, p.size, p.gold ? "bg-[#ecc27e]" : "bg-[#4a2c1a]")}
-              animate={{ y: [0, -14, 0], x: [0, 6, 0], opacity: [0.5, 1, 0.5], scale: [0.9, 1.1, 0.9] }}
-              transition={{ duration: p.dur, ease: "easeInOut", repeat: Infinity, delay: p.idx * 0.6 }}
-              style={{ boxShadow: "0 0 8px rgba(232,183,117,0.4)" }}
-            />
-          ))}
-        </div>
+        <Particles />
       </motion.div>
     </div>
   );
