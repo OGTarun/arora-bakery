@@ -43,12 +43,12 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   const cupcakeRotX = useTransform(y, (v) => v * -14);
   const cupcakeRotY = useTransform(x, (v) => v * 16);
 
-  /* Four cupcakes, asymmetrically placed and sized for a balanced scatter. */
+  /* Four cupcakes — small garnish, framed around the cake, never competing. */
   const cupcakes = [
     {
       id: 1,
-      pos: "right-[4%] top-[14%]",
-      size: "h-36 w-auto lg:h-56",
+      pos: "right-[6%] top-[10%]",
+      size: "h-20 w-auto lg:h-28",
       z: "z-20",
       visibility: "block",
       dur: 5,
@@ -59,8 +59,8 @@ export function FloatingCake({ className }: FloatingCakeProps) {
     },
     {
       id: 2,
-      pos: "left-[2%] bottom-[8%]",
-      size: "h-28 w-auto lg:h-44",
+      pos: "left-[4%] bottom-[6%]",
+      size: "h-16 w-auto lg:h-24",
       z: "z-20",
       visibility: "hidden sm:block",
       dur: 6.4,
@@ -71,8 +71,8 @@ export function FloatingCake({ className }: FloatingCakeProps) {
     },
     {
       id: 3,
-      pos: "right-[10%] bottom-[34%]",
-      size: "h-32 w-auto lg:h-48",
+      pos: "right-[0%] top-[52%]",
+      size: "h-20 w-auto lg:h-28",
       z: "z-30",
       visibility: "hidden md:block",
       dur: 7,
@@ -83,8 +83,8 @@ export function FloatingCake({ className }: FloatingCakeProps) {
     },
     {
       id: 4,
-      pos: "left-[18%] top-[6%]",
-      size: "h-24 w-auto lg:h-40",
+      pos: "left-[30%] top-[2%]",
+      size: "h-14 w-auto lg:h-20",
       z: "z-0",
       visibility: "hidden lg:block",
       dur: 5.8,
@@ -181,11 +181,11 @@ export function FloatingCake({ className }: FloatingCakeProps) {
             <Image
               src="/cake.png"
               alt="Chocolate celebration cake"
-              width={1140}
-              height={1140}
+              width={700}
+              height={800}
               priority
-              sizes="(min-width:1024px) 1140px, (min-width:640px) 1020px, 420px"
-              className="h-[440px] w-[389px] object-contain drop-shadow-[0_50px_70px_rgba(0,0,0,0.55)] sm:h-[930px] sm:w-[812px] lg:h-[1134px] lg:w-[990px]"
+              sizes="(min-width:1024px) 700px, (min-width:640px) 520px, 320px"
+              className="h-[320px] w-[280px] object-contain drop-shadow-[0_60px_80px_rgba(0,0,0,0.6)] sm:h-[520px] sm:w-[455px] lg:h-[680px] lg:w-[595px]"
             />
           </motion.div>
         </motion.div>
