@@ -74,11 +74,8 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_55%,rgba(0,0,0,0.65)_100%)]" />
       </div>
 
-      {/* Chocolate shards, gold flakes, and candies drifting over the hero */}
+      {/* Chocolate shards and gold flakes drifting over the hero */}
       <ChocolateParticles />
-      <Candies />
-
-      {/* Cupcakes scattered around the hero edges */}
       <CupcakeScatter />
 
       <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_0.85fr] lg:gap-8 lg:px-16 lg:pt-24">
@@ -120,7 +117,7 @@ export function Hero() {
         </div>
 
         {/* Right — floating chocolate cake */}
-        <FloatingCake className="mx-auto h-[300px] w-full max-w-md sm:h-[360px] sm:max-w-xl lg:-mt-1 lg:h-[400px] lg:max-w-[600px] lg:justify-center" />
+        <FloatingCake className="mx-auto h-[165px] w-full max-w-xs self-center sm:h-[220px] sm:max-w-lg lg:mt-16 lg:h-[253px] lg:max-w-[380px] lg:ml-20 lg:justify-center" />
       </div>
 
       {/* Bottom feature strip */}

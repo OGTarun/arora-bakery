@@ -2,15 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Wheat, ArrowRight, Share2, Globe } from "lucide-react";
+import { Wheat, ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/ui/container";
-import { contactInfo, navigation } from "@/data/site";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  WhatsAppIcon,
+} from "@/components/ui/social-icons";
+import { contactInfo, navigation, socialLinks } from "@/data/site";
 
-const socials = [
-  { label: "Share", icon: Share2, href: "#" },
-  { label: "Website", icon: Globe, href: "#" },
-];
+const socialIcons = {
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  whatsapp: WhatsAppIcon,
+} as const;
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -45,16 +51,21 @@ export function Footer() {
               baked goods since 1987.
             </p>
             <div className="mt-6 flex gap-3">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-surface/20 text-surface/70 transition-colors duration-300 hover:border-primary hover:text-primary"
-                >
-                  <s.icon className="h-4 w-4" aria-hidden="true" />
-                </a>
-              ))}
+              {socialLinks.map((s) => {
+                const Icon = socialIcons[s.icon as keyof typeof socialIcons];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    aria-label={s.label}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-surface/20 text-surface/70 transition-colors duration-300 hover:border-primary hover:text-primary"
+                  >
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 

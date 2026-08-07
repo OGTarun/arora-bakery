@@ -32,7 +32,7 @@ interface Cfg {
   px: number;
 }
 
-const COUNT = 36;
+const COUNT = 56;
 
 /* Deterministic configs so SSR/hydration stays stable. */
 const configs: Cfg[] = Array.from({ length: COUNT }).map((_, i) => {

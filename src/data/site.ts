@@ -144,5 +144,23 @@ export const contactInfo = {
   address: "Grand Trunk Road, Near Bus Stand, Khanna, Punjab 141401",
   phone: "+91 99881 77153",
   email: "orders@arorabakery.com",
-  hours: "Monâ€“Sat: 7:00 AM â€“ 10:00 PM\nSun: 8:00 AM â€“ 9:00 PM",
+  hours: "Mon-Sat: 7:00 AM - 10:00 PM\nSun: 8:00 AM - 9:00 PM",
 };
+
+export const socialLinks = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/arora.bakers/",
+    icon: "instagram",
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/p/Arora-bakery-100063644332173/",
+    icon: "facebook",
+  },
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/919988177153",
+    icon: "whatsapp",
+  },
+];

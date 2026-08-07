@@ -78,7 +78,7 @@ export function FloatingCake({ className }: FloatingCakeProps) {
 
       {/* Floating dust / bokeh — kept subtle so the cake is the focus */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: 9 }).map((_, i) => (
           <span
             key={i}
             className="absolute rounded-full bg-white/20 backdrop-blur-sm"
@@ -116,18 +116,18 @@ export function FloatingCake({ className }: FloatingCakeProps) {
           className="relative [transform-style:preserve-3d]"
         >
           <motion.div
-            animate={{ rotateY: [-15, 15, -15], rotateX: [7, -7, 7] }}
-            transition={{ duration: 9, ease: "easeInOut", repeat: Infinity }}
+            animate={{ rotateY: [-14, 16, -14], rotateX: [-6, 9, -6], rotateZ: [1.5, -1.5, 1.5] }}
+            transition={{ duration: 11, ease: "easeInOut", repeat: Infinity }}
             className="[transform-style:preserve-3d]"
           >
             <Image
               src="/cake.png"
               alt="Chocolate celebration cake"
-              width={690}
-              height={460}
+              width={972}
+              height={760}
               priority
-              sizes="(min-width:1024px) 690px, (min-width:640px) 600px, 420px"
-              className="h-[280px] w-[420px] object-contain drop-shadow-[0_45px_70px_rgba(0,0,0,0.55)] sm:h-[400px] sm:w-[600px] lg:h-[460px] lg:w-[690px]"
+              sizes="(min-width:1024px) 345px, (min-width:640px) 300px, 210px"
+              className="h-[140px] w-auto object-contain drop-shadow-[0_45px_70px_rgba(0,0,0,0.55)] sm:h-[200px] lg:h-[230px]"
             />
           </motion.div>
         </motion.div>
