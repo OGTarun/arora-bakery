@@ -69,7 +69,7 @@ export function Cursor({ children }: CursorProps) {
       const interactive = target.closest(INTERACTIVE_SELECTOR) !== null;
       gsap.to(inner, {
         scale: interactive ? 1.6 : 1,
-        backgroundColor: interactive ? "#d79b59" : "#2d2017",
+        backgroundColor: interactive ? "#e8b765" : "#f2e5d2",
         duration: 0.25,
         ease: "power2.out",
       });

@@ -26,16 +26,16 @@ export function FloatingCake({ className }: FloatingCakeProps) {
   /* Normalised cursor in [-1, 1] within the stage. */
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 40, damping: 16, mass: 1.2 });
-  const y = useSpring(my, { stiffness: 40, damping: 16, mass: 1.2 });
+  const x = useSpring(mx, { stiffness: 34, damping: 24, mass: 1.6 });
+  const y = useSpring(my, { stiffness: 34, damping: 24, mass: 1.6 });
 
-  /* Inertial translate — the cake lags behind the cursor. */
-  const translateX = useTransform(x, (v) => v * 30);
-  const translateY = useTransform(y, (v) => v * 22);
+  /* Inertial translate — the cake glides, heavily smoothed. */
+  const translateX = useTransform(x, (v) => v * 16);
+  const translateY = useTransform(y, (v) => v * 12);
 
-  /* 3D tilt based on cursor position — makes the cake feel alive. */
-  const rotateX = useTransform(y, (v) => v * -18);
-  const rotateY = useTransform(x, (v) => v * 20);
+  /* Gentle 3D tilt from the cursor — subtle so it never over-rotates. */
+  const rotateX = useTransform(y, (v) => v * -7);
+  const rotateY = useTransform(x, (v) => v * 9);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -112,12 +112,14 @@ export function FloatingCake({ className }: FloatingCakeProps) {
       >
         <motion.div
           animate={{ y: [0, -18, 0] }}
-          transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+          transition={{ duration: 6.5, ease: "easeInOut", repeat: Infinity }}
           className="relative [transform-style:preserve-3d]"
         >
+          {/* Permanent, slow 3D oscillation — the cake is never flat,
+              even when the cursor is still or making big moves. */}
           <motion.div
-            animate={{ rotateY: [-14, 16, -14], rotateX: [-6, 9, -6], rotateZ: [1.5, -1.5, 1.5] }}
-            transition={{ duration: 11, ease: "easeInOut", repeat: Infinity }}
+            animate={{ rotateY: [-17, 17, -17], rotateX: [-9, 9, -9], rotateZ: [2, -2, 2] }}
+            transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }}
             className="[transform-style:preserve-3d]"
           >
             <Image

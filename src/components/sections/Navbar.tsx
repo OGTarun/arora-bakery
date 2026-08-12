@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { ArrowRight, Menu, Wheat, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -99,8 +100,15 @@ export function Navbar() {
             className="flex w-fit items-center gap-2.5 rounded-full outline-none transition-opacity duration-300 hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             aria-label="Arora Bakery — home"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15 text-primary">
-              <Wheat className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" />
+            <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-white/30">
+              <Image
+                src="/logo.png"
+                alt="Arora Bakery logo"
+                fill
+                priority
+                sizes="36px"
+                className="object-cover"
+              />
             </span>
             <span className="font-heading text-xl font-medium leading-none tracking-tight sm:text-[1.375rem]">
               Arora <span className="italic">Bakery</span>

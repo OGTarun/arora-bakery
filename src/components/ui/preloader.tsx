@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Wheat } from "lucide-react";
 
 export function Preloader() {
   const [visible, setVisible] = useState(true);
@@ -30,8 +30,15 @@ export function Preloader() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-              <Wheat className="h-7 w-7" strokeWidth={1.5} />
+            <span className="relative h-20 w-20 overflow-hidden rounded-full ring-2 ring-primary/30">
+              <Image
+                src="/logo.png"
+                alt="Arora Bakery logo"
+                fill
+                priority
+                sizes="80px"
+                className="object-cover"
+              />
             </span>
             <span className="font-heading text-2xl font-medium tracking-tight text-foreground">
               Arora <span className="italic text-primary">Bakery</span>

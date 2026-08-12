@@ -110,7 +110,7 @@ export function Gallery() {
               type="button"
               onClick={() => setLightbox(null)}
               aria-label="Close"
-              className="absolute top-6 right-6 flex h-11 w-11 items-center justify-center rounded-full border border-surface/25 text-surface transition-colors hover:border-primary hover:text-primary"
+              className="absolute top-6 right-6 flex h-11 w-11 items-center justify-center rounded-full border border-foreground/30 text-foreground transition-colors hover:border-primary hover:text-primary"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>

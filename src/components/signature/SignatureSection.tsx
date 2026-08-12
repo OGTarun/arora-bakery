@@ -6,6 +6,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { SignatureGrid } from "./SignatureGrid";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { products } from "@/data/site";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -65,6 +66,40 @@ export function SignatureSection() {
           {/* Showcase cards */}
           <SignatureGrid />
         </div>
+
+        {/* Price board — written right below the scrolling slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="mt-14 overflow-hidden rounded-[2rem] border border-white/10 shadow-soft lg:mt-16"
+          aria-label="Price list"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-secondary/40 px-6 py-4 sm:px-8">
+            <p className="text-[0.7rem] font-medium uppercase tracking-[0.22em] text-primary">
+              Price List
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Starting prices · custom orders quoted on request
+            </p>
+          </div>
+          <ul className="grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <li
+                key={product.id}
+                className="flex items-center justify-between gap-4 bg-background px-6 py-5 sm:px-8"
+              >
+                <span className="text-sm font-medium text-foreground/90">
+                  {product.name}
+                </span>
+                <span className="font-heading text-lg font-medium italic text-primary">
+                  {product.price}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
       </Container>
     </section>
   );

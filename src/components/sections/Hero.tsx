@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 import { Great_Vibes } from "next/font/google";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -8,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { FeatureStrip } from "@/components/hero/feature-strip";
 import { FloatingCake } from "@/components/hero/floating-cake";
 import { ChocolateParticles } from "@/components/hero/chocolate-particles";
-import { Candies } from "@/components/hero/candies";
 import { CupcakeScatter } from "@/components/hero/cupcake-scatter";
 
 const script = Great_Vibes({
@@ -63,22 +63,42 @@ export function Hero() {
       id="home"
       className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#120a06] text-[#f5e9da]"
     >
-      {/* Cinematic backdrop — blurred bakery ambience */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_70%_30%,#2a160c_0%,#1a0f09_55%,#120a06_100%)]" />
-        <div className="absolute -top-16 left-1/4 h-80 w-80 rounded-full bg-[#c9873a]/20 blur-[110px]" />
-        <div className="absolute top-1/4 right-[6%] h-72 w-72 rounded-full bg-[#e8b765]/15 blur-[100px]" />
-        <div className="absolute bottom-10 left-[8%] h-64 w-64 rounded-full bg-[#8a5128]/20 blur-[90px]" />
-        <div className="absolute inset-x-0 top-[18%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute inset-x-0 top-[68%] h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_55%,rgba(0,0,0,0.65)_100%)]" />
+      {/* z-0 Hero background image */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/hero-bg.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
       </div>
 
-      {/* Chocolate shards and gold flakes drifting over the hero */}
-      <ChocolateParticles />
-      <CupcakeScatter />
+      {/* z-10 dark gradient overlay (~45%) + readability gradients */}
+      <div className="pointer-events-none absolute inset-0 z-10" aria-hidden="true">
+        <div className="absolute inset-0 bg-[#120a06]/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#120a06]/80 via-[#120a06]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#120a06]/70 via-transparent to-[#120a06]/35" />
+      </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_0.85fr] lg:gap-8 lg:px-16 lg:pt-24">
+      {/* z-20 warm radial glow */}
+      <div className="pointer-events-none absolute inset-0 z-20" aria-hidden="true">
+        <div className="absolute -top-16 left-1/4 h-80 w-80 rounded-full bg-[#e8b765]/15 blur-[110px]" />
+        <div className="absolute top-1/4 right-[8%] h-72 w-72 rounded-full bg-[#e8b765]/10 blur-[100px]" />
+        <div className="absolute bottom-12 left-[10%] h-64 w-64 rounded-full bg-[#8a5128]/20 blur-[90px]" />
+        <div className="absolute inset-x-0 top-[18%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute inset-x-0 top-[68%] h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(100%_100%_at_50%_50%,transparent_62%,rgba(0,0,0,0.5)_100%)]" />
+      </div>
+
+      {/* z-30 floating objects */}
+      <div className="pointer-events-none absolute inset-0 z-30" aria-hidden="true">
+        <ChocolateParticles />
+        <CupcakeScatter />
+      </div>
+
+      <div className="relative z-40 mx-auto grid w-full max-w-[1500px] flex-1 items-start gap-10 px-6 pt-24 pb-16 md:px-12 lg:grid-cols-[1fr_0.85fr] lg:gap-8 lg:px-16 lg:pt-24">
         {/* Left — editorial copy, fills roughly half the viewport width */}
         <div className="relative z-20 w-full lg:max-w-full">
           <h1 className="mt-0 font-heading text-[2.9rem] font-medium leading-[1.0] tracking-tight text-[#fbf1e2] text-balance sm:text-7xl xl:text-8xl">
@@ -121,13 +141,13 @@ export function Hero() {
       </div>
 
       {/* Bottom feature strip */}
-      <div className="relative z-20 -mb-8 lg:mb-0">
+      <div className="relative z-40 -mb-8 lg:mb-0">
         <FeatureStrip />
       </div>
 
       {/* Bottom center badge */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-44 z-20 flex justify-center md:bottom-48"
+        className="pointer-events-none absolute inset-x-0 bottom-44 z-40 flex justify-center md:bottom-48"
         aria-hidden="true"
       >
         <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-[#e8b765]/30 bg-[#e8b765]/10 px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-[#ecc27e] backdrop-blur-sm">
@@ -138,7 +158,7 @@ export function Hero() {
 
       {/* Scroll hint */}
       <div
-        className="pointer-events-none absolute bottom-24 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
+        className="pointer-events-none absolute bottom-24 left-1/2 z-40 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
         aria-hidden="true"
       >
         <span className="text-[0.65rem] font-medium uppercase tracking-[0.3em] text-[#c9b7a2]/70">
@@ -152,9 +172,9 @@ export function Hero() {
         </span>
       </div>
 
-      {/* Soft transition into the next light section */}
+      {/* Soft transition into the next section; starts semi-transparent so the image stays visible */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-24 bg-gradient-to-t from-[#fff8f2] to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-24 bg-gradient-to-t from-[#2a1c11]/85 to-transparent"
         aria-hidden="true"
       />
     </section>
