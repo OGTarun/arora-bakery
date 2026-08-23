@@ -40,7 +40,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/25">
+              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-black/10">
                 <Image
                   src="/logo.png"
                   alt="Arora Bakery logo"
@@ -67,7 +67,7 @@ export function Footer() {
                     aria-label={s.label}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-surface/20 text-foreground/90 transition-colors duration-300 hover:border-primary hover:text-primary"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-foreground/10 text-foreground/90 transition-colors duration-300 hover:border-primary hover:text-primary"
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </a>
@@ -142,12 +142,12 @@ export function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   aria-label="Email address"
-                  className="h-11 w-full rounded-full border border-surface/20 bg-surface/5 px-4 text-sm text-foreground placeholder-foreground/70 outline-none transition-colors focus:border-primary"
+                  className="h-11 w-full rounded-full border border-foreground/10 bg-white/30 px-4 text-sm text-foreground placeholder-foreground/50 outline-none transition-colors focus:border-primary"
                 />
                 <button
                   type="submit"
                   aria-label="Subscribe"
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-dark transition-opacity hover:opacity-90"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-foreground transition-opacity hover:opacity-90"
                 >
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -156,7 +156,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex items-center justify-between border-t border-surface/15 pt-7 text-xs text-foreground/70">
+        <div className="mt-14 flex items-center justify-between border-t border-foreground/10 pt-7 text-xs text-foreground/70">
           <p>© {new Date().getFullYear()} Arora Bakery, Khanna</p>
           <p>Baked with love.</p>
         </div>

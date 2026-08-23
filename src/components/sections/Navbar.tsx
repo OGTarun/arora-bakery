@@ -87,9 +87,9 @@ export function Navbar() {
           ref={navRef}
           aria-label="Primary"
           className={cn(
-            "grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 rounded-full border border-white/60 px-3 py-2.5 backdrop-blur-2xl transition-all duration-500 sm:px-4",
+            "grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 rounded-full border border-black/8 px-3 py-2.5 backdrop-blur-2xl transition-all duration-500 sm:px-4",
             scrolled
-              ? "bg-background/85 shadow-float ring-1 ring-white/50"
+              ? "bg-background/85 shadow-float ring-1 ring-black/5"
               : "bg-background/50 shadow-soft"
           )}
         >
@@ -100,7 +100,7 @@ export function Navbar() {
             className="flex w-fit items-center gap-2.5 rounded-full outline-none transition-opacity duration-300 hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             aria-label="Arora Bakery — home"
           >
-            <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-white/30">
+            <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-black/10">
               <Image
                 src="/logo.png"
                 alt="Arora Bakery logo"
@@ -200,7 +200,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.98 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-3 w-full max-w-6xl overflow-hidden rounded-3xl border border-white/60 bg-background/90 p-3 shadow-float backdrop-blur-2xl ring-1 ring-white/50"
+              className="mt-3 w-full max-w-6xl overflow-hidden rounded-3xl border border-black/8 bg-background/90 p-3 shadow-float backdrop-blur-2xl ring-1 ring-black/5"
             >
               <ul className="flex flex-col gap-1">
                 {navigation.map((item) => {

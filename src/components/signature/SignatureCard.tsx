@@ -22,7 +22,7 @@ export function SignatureCard({ item, index }: SignatureCardProps) {
       }}
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 260, damping: 24 }}
-      className="group relative flex w-[78vw] max-w-[22rem] shrink-0 snap-start flex-col overflow-hidden rounded-4xl border border-white/15 bg-card/90 shadow-soft backdrop-blur-xl transition-shadow duration-500 hover:shadow-float md:w-auto md:max-w-none"
+      className="group relative flex w-[78vw] max-w-[22rem] shrink-0 snap-start flex-col overflow-hidden rounded-4xl border border-black/8 bg-card/90 shadow-soft backdrop-blur-xl transition-shadow duration-500 hover:shadow-float md:w-auto md:max-w-none"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -34,7 +34,7 @@ export function SignatureCard({ item, index }: SignatureCardProps) {
           className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-40" />
-        <span className="absolute top-4 right-4 rounded-full border border-white/20 bg-[#1d120b]/80 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-foreground/85 backdrop-blur-md">
+        <span className="absolute top-4 right-4 rounded-full border border-black/10 bg-foreground/80 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-background backdrop-blur-md">
           {item.category}
         </span>
       </div>

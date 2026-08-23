@@ -73,7 +73,7 @@ export function SignatureSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mt-14 overflow-hidden rounded-[2rem] border border-white/10 shadow-soft lg:mt-16"
+          className="mt-14 overflow-hidden rounded-[2rem] border border-black/8 shadow-soft lg:mt-16"
           aria-label="Price list"
         >
           <div className="flex flex-wrap items-center justify-between gap-3 bg-secondary/40 px-6 py-4 sm:px-8">
