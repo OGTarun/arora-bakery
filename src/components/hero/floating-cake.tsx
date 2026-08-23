@@ -76,26 +76,6 @@ export function FloatingCake({ className }: FloatingCakeProps) {
         />
       </div>
 
-      {/* Floating dust / bokeh — kept subtle so the cake is the focus */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        {Array.from({ length: 9 }).map((_, i) => (
-          <span
-            key={i}
-            className="absolute rounded-full bg-white/20 backdrop-blur-sm"
-            style={{
-              width: 3 + (i % 3) * 2,
-              height: 3 + (i % 3) * 2,
-              left: `${8 + ((i * 31) % 84)}%`,
-              top: `${12 + ((i * 47) % 72)}%`,
-              opacity: 0.12 + (i % 3) * 0.06,
-              animation: `dust-float ${6 + (i % 5)}s ease-in-out ${
-                i * 0.8
-              }s infinite alternate`,
-            }}
-          />
-        ))}
-      </div>
-
       {/* Ambient mist behind everything */}
       <Fog />
 
